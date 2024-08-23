@@ -48,7 +48,7 @@ try:
         EC.presence_of_element_located((By.XPATH, '//*[@id="id_password"]'))
     )
     email_input.send_keys("mahekh@gmail.com")
-    password_input.send_keys("mahekh@2002")
+    password_input.send_keys("mahekh2002")
 
     # Click the login button
     second_login_button = WebDriverWait(driver, 100).until(
