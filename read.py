@@ -2,28 +2,30 @@ import pandas as pd
 import openpyxl
 import os
 
-def read_profit_and_loss_tab(file_name):
-    # Check if the file exists
-    if file_name and os.path.exists(file_name):
+def read_profit_and_loss_tab(file_name):   
+    if file_name:
         try:
-            # Load the Excel file
-            workbook = openpyxl.load_workbook(file_name, data_only=True)
+            # Load only the "Profit and Loss" sheet
+            profit_and_loss_df = pd.read_excel(file_name, sheet_name="Data Sheet" , usecols='A:K' , skiprows=15 , nrows=15)
+            # print(profit_and_loss_df)
+            # Perform any additional processing here if needed
+            profit_and_loss_df.set_index("Report Date" , inplace=True)
+            # print(profit_and_loss_df)
+            profit_and_loss_df = profit_and_loss_df.transpose()
+            profit_and_loss_df["company"] = file_name.strip(".xlsx")
 
-            # Refresh all data connections manually (if needed)
-            # openpyxl does not support refreshing data connections
-            # If your Excel requires external refresh, consider updating data manually or from source
+            print(f"Profit and Loss Data {file_name}:")
+            print(profit_and_loss_df)
 
-            # Load only the "Profit and Loss" sheet into a DataFrame
-            profit_and_loss_df = pd.read_excel(file_name, sheet_name="Profit & Loss", engine='openpyxl')
-
-            # Display the first few rows
-            print("Profit and Loss Data:")
-            print(profit_and_loss_df.head(13))
+            try:
+                profit_and_loss_df.to_csv('profit_loss.csv', mode='x' , index=True, header=True)
+            except FileExistsError:
+                profit_and_loss_df.to_csv('profit_loss.csv', mode='a', index=True, header=False)
 
         except Exception as e:
             print(f"Error reading Excel file or extracting Profit and Loss tab: {e}")
     else:
-        print(f"File {file_name} not found or path is incorrect.")
+        print(f"File {file_name} not found")
 
 if __name__ == '__main__':
     file_name = "Reliance Industr.xlsx"
