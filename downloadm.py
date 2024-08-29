@@ -9,7 +9,7 @@ import time
 import hvac  
 # Fetch the stock name from Vault
 def get_stock_name_from_vault():
-   vault_address = 'http://0.0.0.0:8200'  
+   vault_address = 'http://localhost:8200'  
    vault_token = 'test'  # Replace with your Vault token
    stock_name_key = 'stock_name'  # Key where the stock name is stored
 
