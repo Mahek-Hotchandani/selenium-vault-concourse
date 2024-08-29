@@ -14,7 +14,7 @@ def get_stock_name_from_vault():
    stock_name_key = 'stock_name'  # Key where the stock name is stored
 
    client = hvac.Client(url=vault_address, token=vault_token)
-   secret = client.secrets.kv.v2.read_secret_version(path='secret_m/path')  
+   secret = client.secrets.kv.v2.read_secret_version(path='secret_m/path', raise_on_deleted_version=True)  
    return secret['data']['data'].get(stock_name_key, 'RELIANCE')
 
 stock_name = get_stock_name_from_vault()
