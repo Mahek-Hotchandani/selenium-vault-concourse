@@ -21,7 +21,7 @@ def read_profit_and_loss_tab(file_name):
            except FileExistsError:
                profit_and_loss_df.to_csv('profit_loss.csv', mode='a', index=True, header=False)
            # Connect to PostgreSQL database and send the data
-           engine = create_engine('postgresql://mahek:mahek@localhost:5432/reliance_profitloss')
+           engine = create_engine('postgresql://mahek:mahek@192.168.3.185/reliance_profitloss')
            profit_and_loss_df.to_sql('profit_loss_data', engine, if_exists='append', index=True)
            print(f"Data from {file_name} successfully loaded into PostgreSQL")
        except Exception as e:
