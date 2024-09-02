@@ -25,8 +25,9 @@ prefs = {
 }
 chrome_options.add_experimental_option("prefs", prefs)
 # service = Service("/usr/local/bin/chromedriver")
-driver = webdriver.Chrome(options=chrome_options)
+driver = webdriver.Chrome(options=chrome_options
 driver.implicitly_wait(10)
+
 # ============================================================ #
 # Login credentials
 email = "mahekh@gmail.com"
